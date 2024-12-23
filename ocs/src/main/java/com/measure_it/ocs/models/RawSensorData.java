@@ -1,9 +1,11 @@
 package com.measure_it.ocs.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.lang.reflect.Field;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class RawSensorData {
     private Double longitude;

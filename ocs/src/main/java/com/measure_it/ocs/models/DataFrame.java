@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class DataFrame<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    Header header;
+    private Header header;
     T data;
 
     public DataFrame(String sensorName, T data) {
@@ -17,7 +17,10 @@ public class DataFrame<T> implements Serializable {
     }
 }
 
-class Header {
+@Data
+class Header implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     String sensorName;
     LocalDateTime timeStamp;
 
