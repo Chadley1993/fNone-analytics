@@ -23,9 +23,12 @@ public class CentralServer {
     }
 
     @GetMapping("/pitWall-bridge")
-    public List<DataFrame<RawSensorData>> pitWallBridge(@RequestParam String sensorName) {
+    public List<DataFrame<RawSensorData>> pitWallBridge(@RequestBody String[] sensorName) {
         List<DataFrame<RawSensorData>> data = new ArrayList<>();
-        data.add(DynamicSensorInfo.getInstance().get(sensorName));
+        for (String name : sensorName) {
+            if (DynamicSensorInfo.getInstance().containsKey(name))
+                data.add(DynamicSensorInfo.getInstance().get(name));
+        }
         return data;
     }
 

@@ -11,7 +11,7 @@ public class RawSensorData {
     private Double longitude;
     private Double latitude;
     private Double temperatureCelsius;
-    private Double velocityKPH;
+    private Double speedKPH;
 
     @Override
     public String toString() {
