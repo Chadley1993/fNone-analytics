@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MyService {
-  private apiUrl = 'http://localhost:5000/data'; // Replace with your API URL
+  private apiUrl = 'http://localhost:8080/pitWall-bridge'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 

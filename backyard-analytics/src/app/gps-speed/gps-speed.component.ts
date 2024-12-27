@@ -22,11 +22,12 @@ export class GpsSpeedComponent implements AfterViewInit {
   }
 
   sendPostRequest() {
-    const payload = { key: 'value' }; // Replace with your payload
+    const payload = ["gps-1"]; // Replace with your payload
     
     this.myService.postData(payload).subscribe({
       next: (data) => {
-        this.speed = data["speedKPH"];
+        console.log(data)
+        this.speed = data[0]["data"]["speedKPH"];
         this.errorMessage = null;
       },
       error:

@@ -47,7 +47,7 @@ def getPositionData(gps):
     elif (message == "$GPVTG"):
         delta = datetime.now() - START_TIME
         parts = gps_data.split(",")
-        gps_payload["speedKPH"] = parts[7]
+        gps_payload["speedKPH"] = int(float(parts[7]))
         requests.post("http://localhost:8080/data-bridge", json=gps_payload, headers={'sensor-name': 'gps-1'})
     else:
         pass
