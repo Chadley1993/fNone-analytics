@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, Inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, effect, signal, WritableSignal } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import { MyService } from '../my-service.service';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-gps-speed',
@@ -10,43 +9,15 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './gps-speed.component.html',
   styleUrl: './gps-speed.component.scss',
 })
-export class GpsSpeedComponent implements AfterViewInit {
-  private intervalId: any;
+export class GpsSpeedComponent {
   errorMessage: string | null = null;
   speed: any = "x";
-  isBrowser = signal(false);
 
-  constructor(private myService: MyService, @Inject(PLATFORM_ID) platformId: object) {
-    this.isBrowser.set(isPlatformBrowser(platformId));
-    console.log("Hello " + this.speed + "Platform" + this.isBrowser);
-  }
-
-  sendPostRequest() {
-    const payload = ["gps-1"]; // Replace with your payload
-    
-    this.myService.postData(payload).subscribe({
-      next: (data) => {
-        console.log(data)
-        this.speed = data[0]["data"]["speedKPH"];
-        this.errorMessage = null;
-      },
-      error:
-      (error) => {
-        this.errorMessage = 'An error occurred!';
-        console.error(error);
-      }
+  constructor(private myService: MyService) {
+    effect(() => {
+      const speed = this.myService.sensorData().speedKPH;
+      this.speed = speed;
+      console.log("speed -> " + speed);
     });
-  }
-
-  ngAfterViewInit() {
-    console.log('View is initialized');
-    this.startContinuousRequests();
-  }
-
-  startContinuousRequests() {
-    if (this.isBrowser()) {
-      console.log("is browser")
-      this.intervalId = setInterval(() => this.sendPostRequest(), 250); // Every 100 ms
-    }
   }
 }
