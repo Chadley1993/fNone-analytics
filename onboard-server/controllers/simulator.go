@@ -5,11 +5,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"measure-it.com/central-server/simulator"
+	"measure-it.com/central-server/simulators"
 )
 
 var stopSignal = make(chan int8)
-var simConfig = make(chan simulator.GPSSimConfig)
+var simConfig = make(chan simulators.GPSSimConfig)
 var isRunning bool
 
 func PostStartSimulator(context *gin.Context) {
@@ -20,7 +20,7 @@ func PostStartSimulator(context *gin.Context) {
 	}
 
 	if !isRunning {
-		go simulator.GPSSimulator(sensorName, stopSignal, simConfig)
+		go simulators.GPSSimulator(sensorName, stopSignal, simConfig)
 		isRunning = true
 		context.Status(http.StatusOK)
 		return
@@ -29,7 +29,7 @@ func PostStartSimulator(context *gin.Context) {
 }
 
 func PatchSimulator(context *gin.Context) {
-	var newConfig simulator.GPSSimConfig
+	var newConfig simulators.GPSSimConfig
 	if err := context.ShouldBindJSON(&newConfig); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body for GPSSimConfig", "errorMessage": err.Error()})
 		return
