@@ -25,6 +25,11 @@ public class CentralServer {
         DataFrame<RawSensorData> dataFrame = new DataFrame<>(sensorName, rawSensorData);
         DynamicSensorInfo.getInstance().put(sensorName, dataFrame);
     }
+    
+    @GetMapping("/onboard-bridge")
+    public Double onboardDataEndpoint(@RequestParam String sensorName) {
+        return DynamicSensorInfo.getInstance().get(sensorName).getData().getTemperatureCelsius();
+    }
 
     @PostMapping("/pitWall-bridge")
     public List<DataFrame<RawSensorData>> pitWallBridge(@RequestBody String[] sensorName) {
@@ -35,12 +40,7 @@ public class CentralServer {
         }
         return data;
     }
-
-    @GetMapping("/onboard-bridge")
-    public Double onboardDataEndpoint(@RequestParam String sensorName) {
-        return DynamicSensorInfo.getInstance().get(sensorName).getData().getTemperatureCelsius();
-    }
-
+    
     @RequestMapping(value = "/pitWall-bridge", method = RequestMethod.OPTIONS)
     public ResponseEntity<Void> handlePreflight() {
         HttpHeaders headers = new HttpHeaders();
