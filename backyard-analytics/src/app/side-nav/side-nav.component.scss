@@ -1,6 +1,6 @@
 
 mat-sidenav {
-    margin: 16px;
+    margin: 4px;
     width: 400px;
     border-right: none;
     background-color: rgb(218, 30, 171); 
@@ -11,11 +11,11 @@ mat-sidenav {
 
 .main-content {
     height: 100%;//calc(100vh - 128px);
-    margin: 16px;
+    margin: 4px;
     border-radius: 10px;
     color: #eee;
     padding: 16px;
-    margin-left: 32px;
+    margin-left: 8px;
 }
 
 mat-sidenav-container {
