@@ -8,7 +8,7 @@ import * as d3 from 'd3';
   templateUrl: './live-tracker.component.html',
   styleUrl: './live-tracker.component.scss'
 })
-export class LiveTrackerComponent  implements OnInit {
+export class LiveTrackerComponent implements OnInit {
   constructor(private elRef: ElementRef) {}
 
   ngOnInit(): void {
